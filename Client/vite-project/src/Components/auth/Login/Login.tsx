@@ -1,60 +1,63 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const roleRedirects = {
-  admin: '/admin/overview',
-  guest: '/guest/overview',
-  receptionist: '/receptionist/overview',
-  housekeeping: '/housekeeping/overview',
-  manager: '/manager/overview',
-} as const
+  admin: "/admin/overview",
+  guest: "/guest/overview",
+  receptionist: "/receptionist/overview",
+  housekeeping: "/housekeeping/overview",
+  manager: "/manager/overview",
+} as const;
 
-type Role = keyof typeof roleRedirects
+type Role = keyof typeof roleRedirects;
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' })
-  const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5900/api/auth/login', formData)
+      const res = await axios.post(
+        "http://localhost:3900/api/auth/login",
+        formData,
+      );
       const { accessToken, refreshToken, user } = res.data.data as {
-        accessToken: string
-        refreshToken: string
-        user: { roles?: Role }
-      }
+        accessToken: string;
+        refreshToken: string;
+        user: { roles?: Role };
+      };
 
-      localStorage.setItem('accessToken', accessToken)
-      localStorage.setItem('refreshToken', refreshToken)
-      localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("user", JSON.stringify(user));
 
-      const redirectKey = (user?.roles ?? 'guest') as Role
-      const redirectPath = roleRedirects[redirectKey] || '/'
-      navigate(redirectPath)
+      const redirectKey = (user?.roles ?? "guest") as Role;
+      const redirectPath = roleRedirects[redirectKey] || "/";
+      navigate(redirectPath);
     } catch (err: unknown) {
-      console.error('Login error:', err)
+      console.error("Login error:", err);
       const message = axios.isAxiosError(err)
-        ? err.response?.data?.message || 'Login failed. Please try again.'
-        : 'Login failed. Please try again.'
-      setError(message)
+        ? err.response?.data?.message || "Login failed. Please try again."
+        : "Login failed. Please try again.";
+      setError(message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="auth-page">
@@ -63,13 +66,16 @@ const Login = () => {
       <div className="auth-blob auth-blob--bottom" />
 
       <div className="auth-card">
-        
-
         <h1 className="auth-title text-center">Login</h1>
-        <p className="auth-subtitle text-center">Sign in to your account to continue</p>
+        <p className="auth-subtitle text-center">
+          Sign in to your account to continue
+        </p>
 
         {error && (
-          <div className="auth-error" style={{ color: 'red', marginBottom: '1rem', textAlign: 'center' }}>
+          <div
+            className="auth-error"
+            style={{ color: "red", marginBottom: "1rem", textAlign: "center" }}
+          >
             {error}
           </div>
         )}
@@ -119,7 +125,7 @@ const Login = () => {
               <input
                 id="login-password"
                 name="password"
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 required
                 placeholder="••••••••"
@@ -163,10 +169,19 @@ const Login = () => {
           </div>
 
           {/* Submit */}
-          <button type="submit" id="login-submit-btn" className="auth-btn" disabled={loading}>
-            <span>{loading ? 'Signing In...' : 'Sign In'}</span>
+          <button
+            type="submit"
+            id="login-submit-btn"
+            className="auth-btn"
+            disabled={loading}
+          >
+            <span>{loading ? "Signing In..." : "Sign In"}</span>
             {!loading && (
-              <svg viewBox="0 0 20 20" fill="currentColor" className="auth-btn-icon">
+              <svg
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="auth-btn-icon"
+              >
                 <path
                   fillRule="evenodd"
                   d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z"
@@ -186,14 +201,14 @@ const Login = () => {
 
         {/* Switch to Register */}
         <p className="auth-switch">
-          Don&apos;t have an account?{' '}
+          Don&apos;t have an account?{" "}
           <Link to="/register" className="auth-switch-link">
             Create one
           </Link>
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
