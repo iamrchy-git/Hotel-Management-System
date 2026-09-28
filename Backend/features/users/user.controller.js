@@ -8,7 +8,13 @@ export const getAllUsers = async (req, res) => {
 
 
         const users = await userService.getAllUsersService();
-        return res.status(200).json({ success: true, data: { users } });
+        return res.status(200).json({
+            success: true,
+            data: {
+                users
+
+            }
+        });
     } catch (error) {
         return res.status(error.status || 500).json({
             success: false,

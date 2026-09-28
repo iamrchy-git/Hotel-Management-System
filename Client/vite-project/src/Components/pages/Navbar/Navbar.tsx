@@ -24,47 +24,8 @@ const Navbar = () => {
                     <h1>LUXE ESCAPE</h1>
                 </div>
 
-
-                {/* Desktop Menu */}
-                {/* <nav className="hidden md:flex">
-                    <ul className="flex justify-between items-center gap-8 text-sm px-8">
-
-                        <li>
-                            <Link to="/hotel">
-                                Hotel
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link to="/rooms">
-                                Rooms
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link to="/restaurant">
-                                Restaurant
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link to="/booking">
-                                Booking
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link to="/blog">
-                                Blog
-                            </Link>
-                        </li>
-
-
-                    </ul>
-                </nav> */}
-
                 <div className="flex items-center gap-4">
-                     <Link to='/register' className="text-sm text-muted-foreground px-4 py-2 text-sm font-medium hover:text-blue-700 transition-colors">Register</Link>
+                    <Link to='/register' className="text-sm text-muted-foreground px-4 py-2 text-sm font-medium hover:text-blue-700 transition-colors">Register</Link>
 
                     <Link to='/login' className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors hover:text-blue-700">Login ➜</Link>
                    

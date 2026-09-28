@@ -1,7 +1,11 @@
-import React from 'react'
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
-const ResponsiveMenu = ({showMenu, setShowMenu}) => {
+type ResponsiveMenuProps = {
+  showMenu: boolean
+  setShowMenu: (value: boolean) => void
+}
+
+const ResponsiveMenu = ({ showMenu, setShowMenu }: ResponsiveMenuProps) => {
   return (
     <div className={`
             ${showMenu ? "left-0" : "left-[-1000%]"} 

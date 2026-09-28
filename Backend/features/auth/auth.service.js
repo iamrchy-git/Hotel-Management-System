@@ -44,7 +44,7 @@ export const registerService = async ({ name, email, password, roles }) => {
     });
 
     // to write code about token
-    const token = jwt.sign(
+    const accessToken = jwt.sign(
         {
             id: user.id,
             roles: user.roles
@@ -54,15 +54,22 @@ export const registerService = async ({ name, email, password, roles }) => {
             expiresIn: process.env.JWT_EXPIRES_IN
         }
 
-    )
+    );
 
-
+    const refreshToken = jwt.sign(
+        {
+            id: user.id,
+        },
+        process.env.JWT_REFRESH_TOKEN,
+        {
+            expiresIn: process.env.JWT_REFRESH_EXPIRES_IN
+        }
+    );
 
     const userData = user.toJSON();
     delete userData.password;
 
     return {
-        token,
         accessToken,
         refreshToken,
         user: userData

@@ -1,22 +1,30 @@
+import { response } from 'express';
 import { registerService, loginService } from './auth.service.js';
 
 // POST /api/auth/register
 export const registerUser = async (req, res) => {
     try {
-        const { user } = await registerService(req.body);
+        const { accessToken, refreshToken, user } = await registerService(req.body);
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly : true,
+            maxAge : 7 * 24 * 60 * 60 * 1000,
+        });
 
         return res.status(201).json({
             success: true,
             message: 'User registered successfully',
             data: {
                 user,
-                token
-               
+                accessToken,
+                refreshToken
+
+
             },
         });
     } catch (error) {
         console.error('Error in registerUser:', error);
-        
+
         return res.status(error.status || 500).json({
             success: false,
             message: error.message || 'Internal server error',
@@ -28,7 +36,7 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     try {
         const { accessToken, refreshToken, user } = await loginService(req.body);
-         //refresh token in cookie for security
+        //refresh token in cookie for security
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
@@ -62,6 +70,9 @@ export const logoutUser = async (req, res) => {
             message: 'Logged out successfully',
         });
     } catch (error) {
-        return res.status(500).json({ success: false, message: 'Logout failed' });
+        return res.status(500).json({
+            success: false,
+            message: 'Logout failed'
+        });
     }
 };
