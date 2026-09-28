@@ -1,26 +1,20 @@
 @import "tailwindcss";
 
-
-
 @custom-variant dark (&:where(.dark, .dark *));
 
-
-@theme{
-    --color-primary:#000000;
-    --color-secondary:#FFFFFF;
-
-    
+@theme {
+  --color-primary: #000000;
+  --color-secondary: #ffffff;
 }
 
-@layer components{
-    .container{
-        @apply max-w-7xl mx-auto;
-    }
-    .btn{
-        @apply bg-primary hover:bg-primary/60 px-5 py-2 capitalize text-white rounded-md duration-500
-    }
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto;
+  }
+  .btn {
+    @apply bg-primary hover:bg-primary/60 px-5 py-2 capitalize text-white rounded-md duration-500;
+  }
 }
-
 
 /* =============================================
    AUTH PAGES — Login & Register
@@ -32,8 +26,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background:#f0f0f0;
-  font-family: 'Inter', system-ui, sans-serif;
+  background: #f0f0f0;
+  font-family: "Inter", system-ui, sans-serif;
   padding: 1.5rem;
   overflow: hidden;
 }
@@ -51,12 +45,22 @@
 .auth-blob--top {
   top: -180px;
   right: -140px;
-  background: radial-gradient(circle, rgba(233, 233, 240, 0.35) 0%, rgba(139, 92, 246, 0.15) 60%, transparent 100%);
+  background: radial-gradient(
+    circle,
+    rgba(233, 233, 240, 0.35) 0%,
+    rgba(139, 92, 246, 0.15) 60%,
+    transparent 100%
+  );
 }
 .auth-blob--bottom {
   bottom: -180px;
   left: -140px;
-  background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(99, 88, 252, 0.12) 60%, transparent 100%);
+  background: radial-gradient(
+    circle,
+    rgba(236, 72, 153, 0.25) 0%,
+    rgba(99, 88, 252, 0.12) 60%,
+    transparent 100%
+  );
 }
 
 /* Card */
@@ -78,8 +82,14 @@
 }
 
 @keyframes auth-card-in {
-  from { opacity: 0; transform: translateY(28px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Brand */
@@ -167,7 +177,10 @@
   font-size: 0.9rem;
   font-family: inherit;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
   box-sizing: border-box;
 }
 .auth-input::placeholder {
@@ -263,7 +276,10 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  transition:
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
   box-shadow: 0 4px 16px rgba(99, 88, 252, 0.35);
   margin-top: 0.25rem;
 }

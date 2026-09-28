@@ -1,23 +1,13 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
-const roleRedirects = {
-  admin: "/admin/overview",
-  guest: "/guest/overview",
-  receptionist: "/receptionist/overview",
-  housekeeping: "/housekeeping/overview",
-  manager: "/manager/overview",
-} as const;
-
-type Role = keyof typeof roleRedirects;
+import { toast } from "sonner";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,21 +28,20 @@ const Login = () => {
       const { accessToken, refreshToken, user } = res.data.data as {
         accessToken: string;
         refreshToken: string;
-        user: { roles?: Role };
+        user: object;
       };
 
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("user", JSON.stringify(user));
-
-      const redirectKey = (user?.roles ?? "guest") as Role;
-      const redirectPath = roleRedirects[redirectKey] || "/";
-      navigate(redirectPath);
+      toast.success(res.data.message || "Login successful");
+      navigate("/");
     } catch (err: unknown) {
       console.error("Login error:", err);
       const message = axios.isAxiosError(err)
         ? err.response?.data?.message || "Login failed. Please try again."
         : "Login failed. Please try again.";
+      toast.error(message);
       setError(message);
     } finally {
       setLoading(false);
