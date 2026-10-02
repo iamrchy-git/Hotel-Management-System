@@ -27,9 +27,7 @@ export const NepaliRupee = () => (
 );
 export const money = (n: number) => (
   <>
-    <NepaliRupee />
-    {" "}
-    {n.toLocaleString()}
+    <NepaliRupee /> {n.toLocaleString()}
   </>
 );
 export const nights = (a: string, b: string) =>

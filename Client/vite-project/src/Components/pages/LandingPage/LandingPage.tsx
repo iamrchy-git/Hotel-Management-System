@@ -1,49 +1,36 @@
+import { Link } from "react-router-dom";
 
-import { Link } from 'react-router-dom';
+const LandingPage = () => (
+  <div className="relative min-h-screen overflow-hidden bg-white text-black">
+    <div className="pointer-events-none absolute left-[20%] top-[-20%] h-[600px] w-[600px] rounded-full bg-purple-700/20 blur-[160px]" />
 
-const LandingPage = () => {
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    <main className="relative z-10 flex flex-col items-center px-4 pb-20 pt-28 text-center">
+      <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-1.5 text-xs text-indigo-700">
+        Your comfort, our priority
+      </div>
+      <h1 className="max-w-3xl text-5xl font-bold leading-tight tracking-tight md:text-6xl">
+        Stay in comfort, arrive with ease
+      </h1>
+      <p className="mt-6 max-w-xl text-base leading-relaxed text-gray-500">
+        Manage rooms, bookings, payments, and guest services in one clear and
+        reliable platform.
+      </p>
+      <div className="mt-10 flex items-center gap-4">
+        <Link
+          to="/register"
+          className="rounded-lg bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-500"
+        >
+          Get Started
+        </Link>
+        <Link
+          to="/login"
+          className="rounded-lg border border-indigo-200 px-6 py-3 text-sm font-medium text-indigo-700 transition hover:border-indigo-400 hover:bg-indigo-50"
+        >
+          Sign In
+        </Link>
+      </div>
+    </main>
+  </div>
+);
 
-  return (
-    <div className="min-h-screen bg-white text-black relative overflow-hidden">
-      {/* Background Purple Glow - matching your design */}
-      <div className="absolute top-[-20%] left-[20%] w-600px h-600px bg-purple-700/20 rounded-full blur-[160px] pointer-events-none" />
-     
-
-      {/* ===== HERO SECTION ===== */}
-      <main className="relative z-10 flex flex-col items-center justify-center text-center px-4 pt-28 pb-20">
-        {/* Announcement badge */}
-        <div className="inline-flex items-center gap-2 border border-white/10 rounded-full px-4 py-1.5 text-xs text-gray-400 mb-8 bg-white/5 backdrop-blur-sm">
-          Announcing our next round of funding.{' '}
-          <a href="#" className="text-indigo-400 hover:underline font-medium">Read more →</a>
-        </div>
-        {/* Main Heading */}
-        <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight max-w-3xl">
-          Data to enrich your <br />
-          online business
-        </h1>
-        {/* Subtext */}
-        <p className="text-gray-400 text-base mt-6 max-w-xl leading-relaxed">
-          Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem
-          cupidatat commodo. Elit sunt amet fugiat veniam occaecat.
-        </p>
-        {/* CTA Buttons */}
-        <div className="flex items-center gap-4 mt-10">
-          <Link
-            to="/register"
-            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium text-sm transition shadow-lg shadow-indigo-600/30">
-            Get Started
-          </Link>
-          <Link
-            to="/login"
-            className="px-6 py-3 border border-white/10 text-gray-300 hover:text-white hover:border-white/30 rounded-lg font-medium text-sm transition">
-            Sign In
-          </Link>
-        </div>
-      </main>
-    </div>
-
-  );
-}
-
-export default LandingPage
+export default LandingPage;

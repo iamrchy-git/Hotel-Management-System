@@ -78,10 +78,12 @@ export const getUser = (): User | null => {
   }
 };
 
-export const logout = () =>
+export const logout = () => {
   ["accessToken", "refreshToken", "user"].forEach((k) =>
     localStorage.removeItem(k),
   );
+  window.dispatchEvent(new Event("auth-change"));
+};
 
 export const displayName = (u: User) =>
   u.fullName ||
@@ -131,7 +133,7 @@ const toPayment = (p: any): Payment => ({
   status: p.status ?? "Pending",
 });
 
-/** One GET helper for every list. Falls back to placeholder data if the request fails. */
+/** One GET helper for every list. Uses placeholder data when the API is unavailable or empty. */
 async function load<T>(
   path: string,
   map: (x: any) => T,
@@ -139,10 +141,14 @@ async function load<T>(
 ): Promise<Loaded<T>> {
   try {
     const res = await axios.get(`${API}${path}`, {
+      timeout: 5000,
       headers: { Authorization: `Bearer ${getToken()}` },
     });
     const list = res.data?.data ?? res.data;
-    return { items: Array.isArray(list) ? list.map(map) : [], demo: false };
+    const items = Array.isArray(list) ? list.map(map) : [];
+    return items.length > 0
+      ? { items, demo: false }
+      : { items: fallback, demo: true };
   } catch {
     return { items: fallback, demo: true };
   }
@@ -159,6 +165,8 @@ const MOCK_BOOKINGS: Booking[] = [
     room: "Room 204",
     roomNumber: "204",
     roomType: "Deluxe King",
+    image:
+      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=80",
     checkIn: day(12),
     checkOut: day(15),
     guests: 2,
@@ -171,6 +179,8 @@ const MOCK_BOOKINGS: Booking[] = [
     room: "Room 110",
     roomNumber: "110",
     roomType: "Standard Twin",
+    image:
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80",
     checkIn: day(-40),
     checkOut: day(-37),
     guests: 2,
@@ -183,6 +193,8 @@ const MOCK_BOOKINGS: Booking[] = [
     room: "Room 305",
     roomNumber: "305",
     roomType: "Executive Suite",
+    image:
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80",
     checkIn: day(-90),
     checkOut: day(-88),
     guests: 1,
@@ -197,6 +209,8 @@ const MOCK_ROOMS: Room[] = [
     id: "r1",
     name: "Standard Twin",
     type: "Standard Twin",
+    image:
+      "https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&w=1200&q=80",
     description: "Comfortable twin room with city views and a work desk.",
     price: 110,
     capacity: 2,
@@ -207,6 +221,8 @@ const MOCK_ROOMS: Room[] = [
     id: "r2",
     name: "Deluxe King",
     type: "Deluxe King",
+    image:
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=80",
     description:
       "Spacious king room with a private balcony and breakfast included.",
     price: 180,
@@ -218,6 +234,8 @@ const MOCK_ROOMS: Room[] = [
     id: "r3",
     name: "Executive Suite",
     type: "Executive Suite",
+    image:
+      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=80",
     description: "Separate living area, premium bedding and pool access.",
     price: 320,
     capacity: 3,
@@ -228,6 +246,8 @@ const MOCK_ROOMS: Room[] = [
     id: "r4",
     name: "Family Room",
     type: "Family Room",
+    image:
+      "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?auto=format&fit=crop&w=1200&q=80",
     description: "Roomy layout for families with two double beds.",
     price: 240,
     capacity: 4,

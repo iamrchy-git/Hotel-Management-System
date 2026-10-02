@@ -26,7 +26,7 @@ const ProfileMenu = ({ user }: { user: User }) => {
   const handleLogout = () => {
     logout();
     toast.success("Logged out");
-    navigate("/login");
+    navigate("/");
   };
 
   return (

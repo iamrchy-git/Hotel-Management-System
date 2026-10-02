@@ -164,7 +164,7 @@ const Profile = () => {
           onClick={() => {
             logout();
             toast.success("Logged out");
-            navigate("/login");
+            navigate("/");
           }}
         >
           <FiLogOut /> Sign out

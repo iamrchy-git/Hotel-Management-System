@@ -1,3 +1,4 @@
+
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -24,7 +25,9 @@ const Login = () => {
       const res = await axios.post(
         "http://localhost:3900/api/auth/login",
         formData,
+        { timeout: 5000 },
       );
+
       const { accessToken, refreshToken, user } = res.data.data as {
         accessToken: string;
         refreshToken: string;
@@ -34,13 +37,16 @@ const Login = () => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("user", JSON.stringify(user));
+
       toast.success(res.data.message || "Login successful");
       navigate("/");
     } catch (err: unknown) {
       console.error("Login error:", err);
+
       const message = axios.isAxiosError(err)
         ? err.response?.data?.message || "Login failed. Please try again."
         : "Login failed. Please try again.";
+
       toast.error(message);
       setError(message);
     } finally {
@@ -50,12 +56,44 @@ const Login = () => {
 
   return (
     <div className="auth-page">
-      {/* Background blobs */}
+      {/* Decorative background */}
       <div className="auth-blob auth-blob--top" />
       <div className="auth-blob auth-blob--bottom" />
 
       <div className="auth-card">
-        <h1 className="auth-title text-center">Login</h1>
+        {/* Brand */}
+        <div
+          style={{
+            width: "52px",
+            height: "52px",
+            margin: "0 auto 1.25rem",
+            borderRadius: "16px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%)",
+            color: "#fff",
+            boxShadow: "0 12px 30px rgba(37, 99, 235, 0.22)",
+          }}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="27"
+            height="27"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M12 21s-7-4.35-9.5-9.5C.5 7.5 2.5 4 6 4c2 0 3.5 1.2 4.5 2.8C11.5 5.2 13 4 15 4c3.5 0 5.5 3.5 3.5 7.5C19 16.65 12 21 12 21z" />
+            <path d="M12 8v6" />
+            <path d="M9 11h6" />
+          </svg>
+        </div>
+
+        <h1 className="auth-title text-center">Welcome Back</h1>
+
         <p className="auth-subtitle text-center">
           Sign in to your account to continue
         </p>
@@ -63,7 +101,16 @@ const Login = () => {
         {error && (
           <div
             className="auth-error"
-            style={{ color: "red", marginBottom: "1rem", textAlign: "center" }}
+            style={{
+              color: "#dc2626",
+              background: "#fef2f2",
+              border: "1px solid #fecaca",
+              padding: "0.75rem 0.9rem",
+              borderRadius: "10px",
+              marginBottom: "1.1rem",
+              textAlign: "center",
+              fontSize: "0.875rem",
+            }}
           >
             {error}
           </div>
@@ -75,6 +122,7 @@ const Login = () => {
             <label htmlFor="login-email" className="auth-label">
               Email address
             </label>
+
             <div className="auth-input-wrapper">
               <span className="auth-input-icon">
                 <svg viewBox="0 0 20 20" fill="currentColor">
@@ -82,6 +130,7 @@ const Login = () => {
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
               </span>
+
               <input
                 id="login-email"
                 name="email"
@@ -101,6 +150,7 @@ const Login = () => {
             <label htmlFor="login-password" className="auth-label">
               Password
             </label>
+
             <div className="auth-input-wrapper">
               <span className="auth-input-icon">
                 <svg viewBox="0 0 20 20" fill="currentColor">
@@ -111,21 +161,24 @@ const Login = () => {
                   />
                 </svg>
               </span>
+
               <input
                 id="login-password"
                 name="password"
                 type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 required
-                placeholder="••••••••"
+                placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
                 className="auth-input"
               />
+
               <button
                 type="button"
                 className="auth-eye-btn"
                 onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
                   <svg viewBox="0 0 20 20" fill="currentColor">
@@ -165,6 +218,7 @@ const Login = () => {
             disabled={loading}
           >
             <span>{loading ? "Signing In..." : "Sign In"}</span>
+
             {!loading && (
               <svg
                 viewBox="0 0 20 20"
@@ -188,7 +242,7 @@ const Login = () => {
           <span className="auth-divider-line" />
         </div>
 
-        {/* Switch to Register */}
+        {/* Register */}
         <p className="auth-switch">
           Don&apos;t have an account?{" "}
           <Link to="/register" className="auth-switch-link">
@@ -201,3 +255,4 @@ const Login = () => {
 };
 
 export default Login;
+

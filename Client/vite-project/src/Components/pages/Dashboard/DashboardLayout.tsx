@@ -54,7 +54,7 @@ const DashboardLayout = () => {
   const handleLogout = () => {
     logout();
     toast.success("Logged out");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -73,8 +73,11 @@ const DashboardLayout = () => {
         }`}
       >
         <div className="flex h-16 items-center justify-between border-b border-gray-200 px-4 font-bold md:justify-center lg:justify-start">
-          <span className="md:hidden lg:inline">LUXE ESCAPE</span>
-          <span className="hidden md:inline lg:hidden">LE</span>
+          <span className="flex items-center gap-2 md:hidden lg:inline-flex">
+            <FiHome className="text-xl text-indigo-600" />
+            <span>GrandStay</span>
+          </span>
+          <span className="hidden text-indigo-600 md:inline lg:hidden">MC</span>
           <button
             className="md:hidden"
             onClick={() => setOpen(false)}
@@ -110,7 +113,7 @@ const DashboardLayout = () => {
       </aside>
 
       {/* Topbar */}
-      <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 md:px-8">
+      <header className="fixed inset-x-0 top-0 z-20 flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 md:left-16 md:px-8 lg:left-60">
         <div className="flex items-center gap-3">
           <button
             className="md:hidden"
@@ -133,7 +136,7 @@ const DashboardLayout = () => {
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl p-4 md:p-8">
+      <main className="mx-auto max-w-6xl px-4 pb-4 pt-20 md:px-8 md:pb-8 md:pt-24">
         <Outlet />
       </main>
     </div>
