@@ -1,41 +1,88 @@
 # 🏨 Hotel Management System
 
-A full-stack **Hotel Management System** currently under development.
+A full-stack hotel management system built with **React, TypeScript, Node.js, and Express**.
 
-This project is being built to manage hotel rooms, bookings, customers, and other hotel operations through a modern and responsive web application.
+The project is currently **under development** and is being built as a practical full-stack application for managing hotel operations, bookings, rooms, guests, and stays.
 
-## 🚧 Project Status
+## 🚧 Status
 
 **In Development**
 
-The project is still being actively developed. Some features and UI sections may be incomplete or subject to change.
+The project is not fully completed yet. New features, improvements, and UI updates are still being added.
 
 ## 🛠️ Tech Stack
 
+### Frontend
+
 * React
 * TypeScript
+* Vite
+* Tailwind CSS 4
+* React Router
+* React Icons
+* Sonner
+
+### Backend
+
 * Node.js
 * Express.js
-* MongoDB
-* Tailwind CSS
+* REST API
 
-## ✨ Current Features
+### Other
+
+* Git & GitHub
+* Authentication
+* Local Storage
+
+## 📌 Current Features
 
 * Hotel landing page
-* Room management
-* Booking management
+* User Login & Registration
 * Authentication
 * Dashboard
-* Responsive UI
+* Room management
+* Room availability
+* Booking management
+* Guest-related features
+* Stay details
+* Booking status
+* Payment status
+* Responsive navigation
 
-## 📌 Planned Improvements
+## 📂 Project Structure
 
-* Complete booking workflow
-* More admin features
-* Improved dashboard
-* Payment integration
-* Notifications
-* Production deployment
+```text
+Hotel-Management-System/
+│
+├── Backend/
+│   ├── features/
+│   │   ├── auth/
+│   │   └── users/
+│   ├── app.js
+│   └── package.json
+│
+├── Client/
+│   └── vite-project/
+│       ├── src/
+│       │   ├── components/
+│       │   ├── Dashboard/
+│       │   ├── auth/
+│       │   ├── LandingPage/
+│       │   ├── App.tsx
+│       │   ├── Layout.tsx
+│       │   └── index.css
+│       └── package.json
+│
+└── README.md
+```
+
+## 🎯 Project Goal
+
+The goal of this project is to build a modern and responsive hotel management system with a clean user interface and a structured backend API.
+
+## 🔨 Currently Working On
+
+The project is actively being developed, with more dashboard features, booking workflows, and hotel management functionality being added.
 
 
-> 🚧 This project is currently under development.
+**Note:** This project is currently under development.
