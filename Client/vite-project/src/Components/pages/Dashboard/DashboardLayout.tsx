@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Navigate,
+  Link,
   NavLink,
   Outlet,
   useLocation,
@@ -73,11 +74,19 @@ const DashboardLayout = () => {
         }`}
       >
         <div className="flex h-16 items-center justify-between border-b border-gray-200 px-4 font-bold md:justify-center lg:justify-start">
-          <span className="flex items-center gap-2 md:hidden lg:inline-flex">
-            <FiHome className="text-xl text-indigo-600" />
-            <span>GrandStay</span>
-          </span>
-          <span className="hidden text-indigo-600 md:inline lg:hidden">MC</span>
+          <Link
+            to="/"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2"
+          >
+            <span className="flex items-center gap-2 md:hidden lg:inline-flex">
+              <FiHome className="text-xl text-indigo-600" />
+              <span>GrandStay</span>
+            </span>
+            <span className="hidden text-indigo-600 md:inline lg:hidden">
+              GS
+            </span>
+          </Link>
           <button
             className="md:hidden"
             onClick={() => setOpen(false)}

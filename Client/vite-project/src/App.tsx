@@ -11,13 +11,27 @@ import Stay from "./Components/pages/Dashboard/Stay.tsx";
 import Payments from "./Components/pages/Dashboard/Payments.tsx";
 import Notifications from "./Components/pages/Dashboard/Notifications.tsx";
 import Profile from "./Components/pages/Dashboard/Profile.tsx";
+import LandingPage from "./Components/pages/LandingPage/LandingPage.tsx";
+import RoomsPage from "./Components/pages/LandingPage/RoomsPage.tsx";
+import {
+  AboutPage,
+  ContactPage,
+  ExperiencePage,
+} from "./Components/pages/LandingPage/PublicPages.tsx";
 
 const App = () => {
   return (
     <>
       <Toast />
       <Routes>
-        <Route path="/" element={<Layout />} />
+        {/* Public pages (Navbar + Footer come from Layout) */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/rooms" element={<RoomsPage />} />
+          <Route path="/experience" element={<ExperiencePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Route>
 
         {/* Auth Pages */}
         <Route path="/register" element={<Register />} />

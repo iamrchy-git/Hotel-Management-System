@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FiChevronDown, FiLogOut } from "react-icons/fi";
+import { FiLogOut } from "react-icons/fi";
 import { toast } from "sonner";
-import { displayName, logout, type User } from "./dashboard.service.ts";
+import { logout, type User } from "./dashboard.service.ts";
 import { Avatar } from "./ui.tsx";
 
 const links = [
@@ -33,14 +33,11 @@ const ProfileMenu = ({ user }: { user: User }) => {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 rounded-full p-1 pr-2 hover:bg-gray-100"
+        className="rounded-full p-1 transition hover:bg-gray-100"
         aria-label="Profile menu"
+        title="Profile menu"
       >
         <Avatar user={user} />
-        <span className="hidden max-w-32 truncate text-sm font-medium text-black sm:block">
-          {displayName(user)}
-        </span>
-        <FiChevronDown className="hidden text-gray-500 sm:block" />
       </button>
 
       {open && (

@@ -7,13 +7,19 @@ const Toast = () => {
       closeButton
       duration={1000}
       toastOptions={{
+        style: {
+          background: "#2563eb",
+          border: "1px solid #1d4ed8",
+          color: "#ffffff",
+          boxShadow: "0 10px 24px rgba(37, 99, 235, 0.24)",
+        },
         classNames: {
           toast:
-            "border border-indigo-100 bg-white text-slate-900 shadow-lg shadow-indigo-100/60",
-          success: "border-indigo-200 bg-indigo-50 text-indigo-900",
-          error: "border-indigo-200 bg-indigo-50 text-indigo-900",
+            "border border-blue-700 bg-blue-600 text-white shadow-lg shadow-blue-200/70",
+          success: "border-blue-700 bg-blue-600 text-white",
+          error: "border-blue-700 bg-blue-600 text-white",
           closeButton:
-            "border-indigo-200 bg-white text-indigo-600 hover:bg-indigo-100",
+            "border-blue-300 bg-blue-500 text-white hover:bg-blue-700",
         },
       }}
     />
